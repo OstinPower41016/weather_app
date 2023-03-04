@@ -7,11 +7,14 @@ part of 'weather_model.dart';
 // **************************************************************************
 
 WeatherModel _$WeatherModelFromJson(Map<String, dynamic> json) => WeatherModel(
-      weather: (json['weather'] as List<dynamic>)
-          .map((e) => Weather.fromJson(e as Map<String, dynamic>))
+      weather: (json['weather'] as List<dynamic>?)
+          ?.map((e) => Weather.fromJson(e as Map<String, dynamic>))
           .toList(),
-      main: Main.fromJson(json['main'] as Map<String, dynamic>),
-      name: json['name'] as String,
+      main: json['main'] == null
+          ? null
+          : Main.fromJson(json['main'] as Map<String, dynamic>),
+      name: json['name'] as String?,
+      iconUrl: json['iconUrl'] as String?,
     );
 
 Map<String, dynamic> _$WeatherModelToJson(WeatherModel instance) =>
@@ -19,6 +22,7 @@ Map<String, dynamic> _$WeatherModelToJson(WeatherModel instance) =>
       'weather': instance.weather,
       'main': instance.main,
       'name': instance.name,
+      'iconUrl': instance.iconUrl,
     };
 
 Weather _$WeatherFromJson(Map<String, dynamic> json) => Weather(
@@ -37,13 +41,13 @@ Map<String, dynamic> _$WeatherToJson(Weather instance) => <String, dynamic>{
 
 Main _$MainFromJson(Map<String, dynamic> json) => Main(
       temp: (json['temp'] as num).toDouble(),
-      feelsLike: (json['feelsLike'] as num).toDouble(),
-      tempMin: (json['tempMin'] as num).toDouble(),
-      tempMax: (json['tempMax'] as num).toDouble(),
-      pressure: json['pressure'] as int,
-      humidity: json['humidity'] as int,
-      seaLevel: json['seaLevel'] as int,
-      grndLevel: json['grndLevel'] as int,
+      feelsLike: (json['feelsLike'] as num?)?.toDouble(),
+      tempMin: (json['tempMin'] as num?)?.toDouble(),
+      tempMax: (json['tempMax'] as num?)?.toDouble(),
+      pressure: json['pressure'] as int?,
+      humidity: json['humidity'] as int?,
+      seaLevel: json['seaLevel'] as int?,
+      grndLevel: json['grndLevel'] as int?,
     );
 
 Map<String, dynamic> _$MainToJson(Main instance) => <String, dynamic>{

@@ -1,3 +1,4 @@
+import 'dart:convert';
 
 import 'package:json_annotation/json_annotation.dart';
 
@@ -5,15 +6,18 @@ part "weather_model.g.dart";
 
 @JsonSerializable()
 class WeatherModel {
-  final List<Weather> weather;
-  final Main main;
-  final String name;
+  final List<Weather>? weather;
+  final Main? main;
+  final String? name;
+  final String? iconUrl;
 
   WeatherModel({
     required this.weather,
     required this.main,
     required this.name,
+    required this.iconUrl
   });
+
 
   factory WeatherModel.fromJson(Map<String, dynamic> json) => _$WeatherModelFromJson(json);
   Map<String, dynamic> toJson() => _$WeatherModelToJson(this);
@@ -40,14 +44,14 @@ class Weather {
 
 @JsonSerializable()
 class Main {
-  final double temp;
-  final double feelsLike;
-  final double tempMin;
-  final double tempMax;
-  final int pressure;
-  final int humidity;
-  final int seaLevel;
-  final int grndLevel;
+  final double? temp;
+  final double? feelsLike;
+  final double? tempMin;
+  final double? tempMax;
+  final int? pressure;
+  final int? humidity;
+  final int? seaLevel;
+  final int? grndLevel;
 
   Main({
     required this.temp,

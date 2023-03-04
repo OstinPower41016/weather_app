@@ -8,25 +8,17 @@ class HomeRepository implements IHomeRepository {
   HomeRepository({required this.provider});
   final IHomeProvider provider;
 
-  var searchCityText = "";
   @override
-  var weather = Rx<WeatherModel?>(null);
+  final searchCityText = "".obs;
 
-
-  Future<WeatherModel> _getWeather() async {
-    var res = await provider.getWeather(searchCityText);
-
-    if (res.status.hasError) {
-      return Future.error(res.statusText!);
-    } else {
-      return res.body!;
-    }
+  @override
+  Future<WeatherModel> getWeather() async {
+    final res = await provider.getWeather(searchCityText.value);
+    return res.body!;
   }
-  
+
   @override
-  Future setSearchCityText(String newSearchCityText) async {
-    searchCityText = newSearchCityText;
-    final res = await _getWeather();
-    weather.value = res;
+  void setSearchCityText(String newSearchCityText) async {
+    searchCityText.value = newSearchCityText;
   }
 }
